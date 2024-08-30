@@ -1,4 +1,39 @@
-
-<a routerLink="/financials/input" class="text-slate-300" [routerLinkActive]="['underline', 'underline-offset-4']" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}">Start</a>
-
-<router-outlet />
+<main class="text-center mt-10 text-slate-300">
+  <ul class="flex justify-center">
+    <li class="m-3">
+      <a 
+        ariaCurrentWhenActive="page" 
+        routerLink="/" 
+        [routerLinkActive]="['underline', 'underline-offset-4']" 
+        [routerLinkActiveOptions]="{exact: true}">
+        Home
+      </a>
+    </li>
+    <li class="m-3">
+      <a 
+        ariaCurrentWhenActive="page" 
+        routerLink="/financials/input" 
+        [routerLinkActive]="['underline', 'underline-offset-4']" 
+        [routerLinkActiveOptions]="{exact: true}">
+        Financial Infomation
+      </a>
+    </li>
+    @if (url === "/financials/output") {
+      <li class="m-3">
+        <a 
+          ariaCurrentWhenActive="page" 
+          routerLink="/financials/output" 
+          [routerLinkActive]="['underline', 'underline-offset-4']" 
+          [routerLinkActiveOptions]="{exact: true}">
+          Confirmation
+        </a>
+      </li>
+    }
+  </ul>
+  <div class="mt-10">
+    @if (url === "/") {
+        Welcome! Start the sign up process <a routerLink="/financials/input" class="underline underline-offset-2">here</a>.
+    }
+    <router-outlet />
+  </div>
+</main>

@@ -1,1 +1,6 @@
-<p>output works!</p>
+
+@if (revenue ) {
+    {{ revenue }}
+} @else {
+    Please enter data <a routerLink="/financials/input" class="underline underline-offset-2">here</a>.
+}
