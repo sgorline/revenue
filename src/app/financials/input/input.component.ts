@@ -37,8 +37,8 @@ export class InputComponent implements OnInit {
   // ---------- PUBLIC METHODS ---------- //
 
   public submit(): void {
-    if (this.revenueForm.valid) {
-      this.router.navigate(['/financials/output'], { state: { revenue: this.revenue } });
+    if (this.revenue && this.revenueForm.valid) {
+      this.router.navigate(['/financials/output'], { state: { revenue: this.revenue.toLowerCase() } });
     }
   }
 

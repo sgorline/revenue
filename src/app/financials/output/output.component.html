@@ -1,6 +1,6 @@
 
 @if (revenue ) {
-    {{ revenue }}
+    {{ revenue | financialNumber }}
 } @else {
     Please enter data <a routerLink="/financials/input" class="underline underline-offset-2">here</a>.
 }
