@@ -4,29 +4,25 @@ import { TestBed } from '@angular/core/testing';
 
 describe('AppComponent', () => {
 
+  let app: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [provideRouter([])]
     }).compileComponents();
+    const fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should call createRouteListener on init', () => {
-
-  });
-
-  it('should unsubscribe from router on destroy', () => {
-
-  });
-
-  it('should subscribe to router and set url on route change', () => {
-
+    spyOn(app, 'createRouteListener');
+    app.ngOnInit();
+    expect(app.createRouteListener).toHaveBeenCalled();
   });
 
 });

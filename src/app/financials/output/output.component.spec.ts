@@ -11,8 +11,7 @@ describe('OutputComponent', () => {
     await TestBed.configureTestingModule({
       imports: [OutputComponent],
       providers: [provideRouter([])]
-    })
-    .compileComponents();
+    }).compileComponents();
     fixture = TestBed.createComponent(OutputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -22,8 +21,10 @@ describe('OutputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set revenue', () => {
-    
+  it('should set revenue based on state.revenue', () => {
+    window.history.pushState({ revenue: '10k' }, '', '');
+    component.ngOnInit();
+    expect(component.revenue).toBe('10k');
   });
 
 });

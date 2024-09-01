@@ -1,7 +1,6 @@
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnDestroy, OnInit {
+export class AppComponent implements OnInit {
 
   // ---------- PUBLIC MEMBERS ---------- //
 
@@ -19,7 +18,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   // ---------- PRIVATE MEMBERS ---------- //
 
-  private routerSubscription: Subscription | undefined;
+  
 
   constructor(
     private router: Router
@@ -33,22 +32,18 @@ export class AppComponent implements OnDestroy, OnInit {
     this.createRouteListener();
   }
 
-  ngOnDestroy(): void {
-    this.routerSubscription?.unsubscribe();
-  }
-
   // ---------- PUBLIC METHODS ---------- //
 
-
-
-  // ---------- PRIVATE METHODS ---------- //
-
-  private createRouteListener(): void {
-    this.routerSubscription = this.router.events.subscribe((event) => {
+  public createRouteListener(): void {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;
       }
     });
   }
+
+  // ---------- PRIVATE METHODS ---------- //
+
+
 
 }
