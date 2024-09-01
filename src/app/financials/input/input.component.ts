@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit,ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
   styleUrl: './input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, AfterViewInit {
 
   @ViewChild('revenueForm', { static: true }) revenueForm: NgForm;
+  @ViewChild('revenueInput', { static: true }) revenueInput: ElementRef;
 
   // ---------- PUBLIC MEMBERS ---------- //
 
@@ -32,6 +33,10 @@ export class InputComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  ngAfterViewInit(): void {
+    this.revenueInput?.nativeElement?.focus();
   }
 
   // ---------- PUBLIC METHODS ---------- //
