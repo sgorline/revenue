@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { OutputComponent } from './output.component';
+import { provideRouter } from '@angular/router';
 
 describe('OutputComponent', () => {
+
   let component: OutputComponent;
   let fixture: ComponentFixture<OutputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OutputComponent]
+      imports: [OutputComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
-
     fixture = TestBed.createComponent(OutputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -20,4 +21,9 @@ describe('OutputComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set revenue', () => {
+    
+  });
+
 });
