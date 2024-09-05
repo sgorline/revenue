@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FinancialNumberPipe } from '../../pipes/financial-number.pipe';
+import { FinancialNumberPipe } from '../../shared/pipes/financial-number.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [FinancialNumberPipe, RouterLink],
   templateUrl: './output.component.html',
-  styleUrl: './output.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OutputComponent implements OnInit {
@@ -16,28 +15,12 @@ export class OutputComponent implements OnInit {
 
   public revenue: string = '';
 
-  // ---------- PRIVATE MEMBERS ---------- //
-
-
-
-  constructor(
-    
-  ) {
-
-  }
+  constructor() { }
 
   // ---------- LIFECYCLE HOOKS ---------- //
 
   ngOnInit(): void {
     this.revenue = history.state?.revenue;
   }
-
-  // ---------- PUBLIC METHODS ---------- //
-
-
-
-  // ---------- PRIVATE METHODS ---------- //
-
-
 
 }
