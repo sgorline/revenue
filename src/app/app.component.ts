@@ -7,7 +7,6 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
@@ -16,15 +15,9 @@ export class AppComponent implements OnInit {
 
   public url: string = '';
 
-  // ---------- PRIVATE MEMBERS ---------- //
-
-  
-
   constructor(
     private router: Router
-  ) {
-
-  }
+  ) { }
 
   // ---------- LIFECYCLE HOOKS ---------- //
 
@@ -41,9 +34,5 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
-  // ---------- PRIVATE METHODS ---------- //
-
-
 
 }

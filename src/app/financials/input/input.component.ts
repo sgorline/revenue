@@ -1,39 +1,50 @@
-import { AfterViewInit,ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+export const financialNumberValidator = (control: AbstractControl): ValidationErrors | null => {
+  const beginning = Number(control.value.slice(0, -1));
+  const lastChar = control.value.slice(-1);
+  if (isNaN(beginning) || beginning <= 0 || !['k', 'm', 'b'].includes(lastChar.toLowerCase())) {
+    return { 'invalidFinancialNumber': true };
+  } else {
+    return null;
+  }
+};
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputComponent implements OnInit, AfterViewInit {
+export class InputComponent implements AfterViewInit {
 
-  @ViewChild('revenueForm', { static: true }) revenueForm: NgForm;
   @ViewChild('revenueInput', { static: true }) revenueInput: ElementRef;
 
   // ---------- PUBLIC MEMBERS ---------- //
 
-  public revenue: string = '';
-
-  // ---------- PRIVATE MEMBERS ---------- //
-
-
+  public revenueForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router
   ) {
-
+    this.revenueForm = this.formBuilder.group({
+      revenue: ['', {
+        validators: [
+          financialNumberValidator,
+          Validators.minLength(2),
+          Validators.required,
+        ]
+      }]
+    });
   }
 
   // ---------- LIFECYCLE HOOKS ---------- //
-
-  ngOnInit(): void {
-
-  }
 
   ngAfterViewInit(): void {
     this.revenueInput?.nativeElement?.focus();
@@ -42,23 +53,9 @@ export class InputComponent implements OnInit, AfterViewInit {
   // ---------- PUBLIC METHODS ---------- //
 
   public submit(): void {
-    if (this.revenue && this.revenueForm.valid) {
-      this.router.navigate(['/financials/output'], { state: { revenue: this.revenue.toLowerCase() } });
+    if (this.revenueForm.controls['revenue'].value.length >= 2 && this.revenueForm.valid) {
+      this.router.navigate(['/financials/output'], { state: { revenue: this.revenueForm.controls['revenue'].value.toLowerCase() } });
     }
   }
-
-  public validateInput(): void {
-    if (this.revenue?.length >= 2) {
-      const beginning = Number(this.revenue.slice(0, -1));
-      const lastChar = this.revenue.slice(-1);
-      if (isNaN(beginning) || beginning <= 0 || !['k', 'm', 'b'].includes(lastChar.toLowerCase())) {
-        this.revenueForm.controls['revenue'].setErrors({ 'invalid': true });
-      }
-    }
-  }
-
-  // ---------- PRIVATE METHODS ---------- //
-
-
 
 }
